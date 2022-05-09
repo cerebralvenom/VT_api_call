@@ -61,10 +61,15 @@ def response_code(response):
     return_code = return_code.replace("]>","")
     print("\n[*] API Response Code: " + return_code)
     if return_code != "200":
-        print("\n[!] Return code not 200: API failure.")
-        print("[*] Check your API key and file hash.")
+        if return_code == "404":
+            print("\n[!] API Return code 404: No Results for File Hash")
+            print("[*] If you believe this is an error, manually enter the file hash at https://www.virustotal.com/gui/home/search.")
+        else:
+            print("\n[!] Return code not 200: API failure.")
+            print("[*] Check your API key and file hash.")
         exit()
-
+        
+        
 hash_check(hash)
 final = api_call(api_key, hash)
 response_code(final)
